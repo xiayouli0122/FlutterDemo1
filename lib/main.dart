@@ -38,6 +38,10 @@ class MyApp extends StatelessWidget {
 //        ),
 //      ),
       title: "Startup Name Generator",
+      theme: new ThemeData(
+        primaryColor: Colors.white,
+        primaryColorDark: Colors.blue,
+      ),
       home: new RandomWords(),
     );
   }
