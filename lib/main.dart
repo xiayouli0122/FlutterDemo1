@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// 引入english_words.dart 软件包
+import 'package:english_words/english_words.dart';
+
 //Main 函数，程序的入口
 //main函数使用了(=>)符号, 这是Dart中单行函数或方法的简写。
 void main() => runApp(new MyApp());
@@ -11,6 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //随机获取一个英文单词
+    final wordPair = new WordPair.random();
     return MaterialApp(
       title: "Hello Flutter App",
       //Scaffold 是 Material library 中提供的一个widget,
@@ -20,8 +25,13 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text("Welcome Flutter App"),
         ),
+
+        //本示例中的body的widget树中包含了一个Center widget,
+        //Center widget又包含一个 Text 子widget。
+        //Center widget可以将其子widget树对齐到屏幕中心
         body: new Center(
-          child: new Text("Hello world!!!"),
+//          child: new Text("Hello world!!!"),
+          child: new Text(wordPair.asPascalCase),
         ),
       ),
     );
