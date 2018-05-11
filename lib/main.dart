@@ -68,6 +68,12 @@ class RandomWordsState extends State<RandomWords> {
   //添加一个biggerFont变量来增大字体大小
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
+  //当用户点击列表中的条目，切换其“收藏”状态时，将该词对添加到或移除出“收藏夹”
+
+  //添加一个 _saved Set(集合) 到RandomWordsState
+  //这个集合存储用户喜欢（收藏）的单词对。 在这里，Set比List更合适，因为Set中不允许重复的值。
+  final _saved = new Set<WordPair>();
+
   //添加一个 _buildSuggestions() 函数. 此方法构建显示建议单词对的ListView
   Widget _buildSuggestions() {
     return new ListView.builder(
@@ -98,11 +104,31 @@ class RandomWordsState extends State<RandomWords> {
   //这个函数在ListTile中显示每个新词对，这使您在下一步中可以生成更漂亮的显示行
   //添加一个_buildRow函数 :
   Widget _buildRow(WordPair pair){
+
+    //判断是否添加到收藏
+    final isSaved = _saved.contains(pair);
+
       return new ListTile(
         title: new Text(
             pair.asPascalCase,
             style: _biggerFont,
         ),
+        //被拖动
+        trailing: new Icon(
+            isSaved ? Icons.favorite : Icons.favorite_border,
+            color: isSaved ? Colors.red : null,
+        ),
+        //添加点击交互
+        onTap: (){
+          ///在Flutter的响应式风格的框架中，调用setState() 会为State对象触发build()方法，从而导致对UI的更新
+          setState(() {
+            if(isSaved) {
+              _saved.remove(pair);
+            } else {
+              _saved.add(pair);
+            }
+          });
+        },
       );
   }
 
