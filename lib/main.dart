@@ -140,10 +140,44 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
         appBar: new AppBar(
           title: new Text("Start Up Name Generator"),
+          //添加一个菜单按钮
+          actions: <Widget>[new IconButton(icon: new Icon(Icons.list), onPressed: _onMenuClick)],
         ),
         body: _buildSuggestions(),
     );
 
+  }
+
+  ///菜单点击
+  void _onMenuClick(){
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+          builder: (context) {
+            final tiles = _saved.map(
+                (pair) {
+                  return new ListTile(
+                    title: new Text(
+                      pair.asPascalCase,
+                      style: _biggerFont,
+                    ),
+                  );
+                }
+            );
+
+            final divider = ListTile.divideTiles(
+                context: context,
+                tiles: tiles
+            ).toList();
+
+            return new Scaffold(
+              appBar: new AppBar(
+                title: new Text("Favorite List"),
+              ),
+              body: new ListView(children: divider,),
+            );
+          }
+      )
+    );
   }
 
 }
