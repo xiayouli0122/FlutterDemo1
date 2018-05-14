@@ -5,7 +5,12 @@ import 'package:english_words/english_words.dart';
 
 //Main 函数，程序的入口
 //main函数使用了(=>)符号, 这是Dart中单行函数或方法的简写。
-void main() => runApp(new MyApp());
+//void main() => runApp(new MyApp());
+
+//等价于
+void main(){
+  runApp(new MyApp());
+}
 
 
 //该应用程序继承了 StatelessWidget，这将会使应用本身也成为一个widget。
